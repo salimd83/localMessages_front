@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Location Message</h1>
+    <a href="#" @click.prevent="logout">Logout</a>
+    <hr>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Messages from './components/Messages.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Messages
+  },
+  methods: {
+    async logout() {
+      await this.axios.post('/users/logout')
+      localStorage.removeItem('token')
+      this.$router.push({name: 'login'})
+    }
   }
 }
 </script>
