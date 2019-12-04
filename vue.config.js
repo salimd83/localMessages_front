@@ -1,4 +1,4 @@
 module.exports = {
   lintOnSave: false,
-  publicPath: process.env.NODE_ENV === "production" ? "/localpost_front/" : "/"
+  publicPath: process.env.NODE_ENV === "production" ? "/localmessages_front/" : "/"
 };

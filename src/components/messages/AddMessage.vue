@@ -9,12 +9,12 @@
 
 <script>
 export default {
-    props: {
-        location: {
-            type: Object,
-            default: null
-        }
-    },
+  props: {
+    location: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       message: "",
@@ -30,10 +30,10 @@ export default {
           long: this.location.lng
         });
         // this.messages = [message.data, ...this.messages];
-        this.$store.commit('addMessages', {messages: [res.data]})
-        this.message = ''
+        this.$store.commit("addMessages", { messages: [res.data] });
+        this.message = "";
       } catch (e) {
-          console.log(e)
+        console.log(e);
         this.error = e.response.data.message;
       }
     }
