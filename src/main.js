@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import router from './router'
 import Toasted from 'vue-toasted';
+import store from './store'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
@@ -19,10 +20,12 @@ if(localStorage.getItem('token')) {
 }
 
 if (navigator.geolocation) {
-  navigator.geolocation.watchPosition(
+  navigator.geolocation.getCurrentPosition(
     position => {
-      localStorage.setItem('lat',  position.coords.latitude)
-      localStorage.setItem('lng', position.coords.longitude)
+      store.commit('setCoordinates', {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      })
     },
     function error() {
       alert("Please enable your GPS position feature.");
@@ -33,5 +36,6 @@ if (navigator.geolocation) {
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

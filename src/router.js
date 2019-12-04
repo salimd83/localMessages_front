@@ -2,7 +2,7 @@ import VueRouter from "vue-router";
 // import Vue from "vue";
 
 import Auth from "./components/Login";
-import Messages from "./components/Messages";
+import Messages from "./components/messages/Wall";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
