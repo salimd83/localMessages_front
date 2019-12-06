@@ -20,7 +20,7 @@ if(localStorage.getItem('token')) {
 }
 
 if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
+  navigator.geolocation.watchPosition(
     position => {
       store.commit('setCoordinates', {
         lat: position.coords.latitude,
