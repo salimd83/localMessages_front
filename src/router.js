@@ -6,6 +6,7 @@ import Messages from "./components/messages/Wall";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import EmailVerified from "./components/EmailVerified";
 
 const routes = [
   { path: "/", name: 'home', component: Messages, meta: { requiresAuth: true } },
@@ -13,6 +14,7 @@ const routes = [
   { path: "/register", name: 'register', component: Register },
   { path: "/forgot-password", name: 'forgotPassword', component: ForgotPassword },
   { path: "/reset-password", name: 'resetPassword', component: ResetPassword },
+  { path: "/email-verified", name: 'emailVerified', component: EmailVerified },
 ];
 
 const router = new VueRouter({

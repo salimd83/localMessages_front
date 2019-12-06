@@ -26,7 +26,7 @@ export default {
       try {
         const res = await this.axios.post("/users/forgotPassword", {
           email: this.email,
-          redirect: "http://localhost:8080/reset-password"
+          redirect: process.env.VUE_APP_BASEURL + "/reset-password"
         });
         this.message = "Please follow instructions in the email sent to you to change your password."
       } catch (e) {

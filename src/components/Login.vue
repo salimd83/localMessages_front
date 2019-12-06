@@ -33,7 +33,8 @@ export default {
           password: this.password
         });
         localStorage.setItem('token', res.data.token)
-        this.$router.push({name: 'home'})
+        // this.$router.push({name: 'home'})
+        window.location.href = '/'
       } catch (e) {
         console.log(e.response.status);
         this.message = e.response.data.message;

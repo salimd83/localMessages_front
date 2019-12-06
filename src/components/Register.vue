@@ -2,7 +2,7 @@
   <div class="register">
     <h1>Create a new account</h1>
 
-    <form @submit.prevent="login">
+    <form @submit.prevent="register">
       <input type="text" v-model="firstName" placeholder="First name" required />
       <br />
       <input type="text" v-model="lastName" placeholder="Last name" required />
@@ -46,9 +46,19 @@ export default {
           password: this.password
         });
         localStorage.setItem("token", res.data.token);
-        this.$router.push({ name: "home" });
+        this.axios.defaults.headers['Authorization'] = res.data.token
+
+        const res2 = await this.axios.get("/users/sendVerificationEmail", {
+          params: {
+            redirect: process.env.VUE_APP_BASEURL + "/email-verified"
+          }
+        })
+
+        // this.$router.push({ name: "home" });
+
+        this.message = res2.data.message
       } catch (e) {
-        console.log(e.response.status);
+        console.log(e);
         this.message = e.response.data.message;
       }
     }

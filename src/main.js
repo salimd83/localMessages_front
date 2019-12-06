@@ -6,7 +6,7 @@ import router from './router'
 import Toasted from 'vue-toasted';
 import store from './store'
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = process.env.VUE_APP_API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 axios.defaults.headers['Authorization'] = localStorage.getItem('token')
 Vue.prototype.axios = axios
