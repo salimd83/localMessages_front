@@ -8,7 +8,8 @@ export default new Vuex.Store({
     messages: [],
     location: {
         lat: null,
-        lng: null
+        lng: null,
+        accuracy: null
     }
   },
   mutations: {
@@ -18,9 +19,10 @@ export default new Vuex.Store({
     setMessages(state, payload) {
       state.messages = payload.messages;
     },
-    setCoordinates(state, {lat, lng}) {
+    setCoordinates(state, {lat, lng, accuracy}) {
         this.state.location.lat = lat
         this.state.location.lng = lng
+        this.state.location.accuracy = accuracy
     }
   }
 });

@@ -24,7 +24,8 @@ if (navigator.geolocation) {
     position => {
       store.commit('setCoordinates', {
         lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lng: position.coords.longitude,
+        accuracy: position.coords.accuracy
       })
     },
     function error() {
