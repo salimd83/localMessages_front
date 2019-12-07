@@ -1,5 +1,6 @@
 <template>
   <div id="list-messages">
+    Location: {{`${location.lat} ${location.lng} - ${location.accuracy}`}}
     <div class="list-messages" v-for="message in messages" :key="message._id">
       {{message.message}}
       <br />
@@ -9,7 +10,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "ListMessages",
@@ -19,18 +20,9 @@ export default {
       default: null
     }
   },
-  async mounted() {
-    console.log(this.location.lat);
-    try {
-      const res = await this.axios.get("/messages", {
-        params: {
-          lat: this.location.lat,
-          long: this.location.lng
-        }
-      });
-      this.$store.commit("setMessages", { messages: res.data });
-    } catch (e) {
-      console.log(e);
+  watch: {
+    location(v) {
+      this.fetchMessages()
     }
   },
   computed: {
@@ -41,6 +33,23 @@ export default {
   methods: {
     dateFormate(d) {
       return moment(d).fromNow();
+    },
+    async fetchMessages() {
+      try {
+        const res = await this.axios.get("/messages", {
+          params: {
+            lat: this.location.lat,
+            long: this.location.lng,
+            distance:
+              this.location.accuracy > 10 && this.location.accuracy < 100
+                ? this.location.accuracy
+                : 10
+          }
+        });
+        this.$store.commit("setMessages", { messages: res.data });
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };

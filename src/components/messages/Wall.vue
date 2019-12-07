@@ -1,7 +1,5 @@
 <template>
   <div id="messages" v-if="location.lat">
-    Location: {{`${location.lat} ${location.lng} - ${location.accuracy}`}}
-    <br />
 
     <AddMessage :location="location" />
 

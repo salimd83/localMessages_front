@@ -20,9 +20,10 @@ export default new Vuex.Store({
       state.messages = payload.messages;
     },
     setCoordinates(state, {lat, lng, accuracy}) {
-        this.state.location.lat = lat
-        this.state.location.lng = lng
-        this.state.location.accuracy = accuracy
+      this.state.location = {lat, lng, accuracy}
+        // this.state.location.lat = lat
+        // this.state.location.lng = lng
+        // this.state.location.accuracy = accuracy
     }
   }
 });

@@ -20,34 +20,41 @@ if (localStorage.getItem("token")) {
 }
 
 let confirmedLowAccuracy = false;
+let accuracy = null;
 
 if (navigator.geolocation) {
   const geoId = navigator.geolocation.watchPosition(
     position => {
       if (position.coords.accuracy > 100 && !confirmedLowAccuracy) {
-        var ok = confirm("Location accuracy is very low, would you like to proceed");
-
+        var ok = confirm(
+          "Location accuracy is very low, would you like to proceed"
+        );
+        console.log("test");
         if (!ok) {
-          confirmedLowAccuracy = true
           navigator.geolocation.clearWatch(geoId);
           return;
+        } else {
+          confirmedLowAccuracy = true;
         }
       }
 
-      const accuracy = localStorage.getItem("accuracy");
+      // const accuracy = localStorage.getItem("accuracy");
+      console.log(position.coords.accuracy);
+      console.log(accuracy);
+      console.log(!accuracy);
+      console.log(position.coords.accuracy > accuracy);
 
       if (!accuracy) {
-        localStorage.setItem("accuracy", position.coords.accuracy);
-      } else {
-        if (position.coords.accuracy > accuracy) {
-          return;
-        }
+        accuracy = position.coords.accuracy;
+      } else if (position.coords.accuracy > accuracy) {
+        return;
       }
 
+      accuracy = position.coords.accuracy;
       store.commit("setCoordinates", {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-        accuracy: position.coords.accuracy
+        accuracy: accuracy
       });
     },
     function error() {
