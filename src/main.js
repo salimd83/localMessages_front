@@ -20,8 +20,14 @@ if(localStorage.getItem('token')) {
 }
 
 if (navigator.geolocation) {
-  navigator.geolocation.watchPosition(
+  const geoId = navigator.geolocation.watchPosition(
     position => {
+      if(position.coords.accuracy > 100) {
+        alert('Could not find your position.')
+        navigator.geolocation.clearWatch(geoId);
+        return
+      }
+      if(position.coords.accuracy > 10) return
       store.commit('setCoordinates', {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -31,7 +37,7 @@ if (navigator.geolocation) {
     function error() {
       alert("Please enable your GPS position feature.");
     },
-    { enableHighAccuracy: true }
+    { enableHighAccuracy: true, maximumAge: 10000 }
   );
 }
 
