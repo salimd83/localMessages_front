@@ -10,7 +10,8 @@ export default new Vuex.Store({
         lat: null,
         lng: null,
         accuracy: null
-    }
+    },
+    profile: null
   },
   mutations: {
     addMessages(state, payload) {
@@ -21,9 +22,9 @@ export default new Vuex.Store({
     },
     setCoordinates(state, {lat, lng, accuracy}) {
       this.state.location = {lat, lng, accuracy}
-        // this.state.location.lat = lat
-        // this.state.location.lng = lng
-        // this.state.location.accuracy = accuracy
+    },
+    setProfile(state, {profile}) {
+      this.state.profile = profile
     }
   }
 });

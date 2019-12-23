@@ -1,0 +1,28 @@
+$form-element-radius: 3px;
+
+input, textarea {
+    margin-bottom: 10px;
+    border-radius: $form-element-radius;
+    height: 38px;
+    border: #e5e5e5 1px solid;
+}
+
+button {
+    background-color: $primaryColor;
+    color: white;
+    padding: 8px 10px;
+    border: $darkerPrimary 1px solid;
+    border-radius: $form-element-radius;
+    height: 34px;
+    font-weight: bold;
+    box-shadow: 0 0 3px 0 rgba(0,0,0, 0.1);
+    cursor: pointer;
+    &.secondary {
+        background: #f0f0f0;
+        border-color: #d5d5d5;
+        color: #333;
+    }
+    &:hover {
+        box-shadow: 0 0 5px 0 rgba(0,0,0, 0.15);
+    }
+}

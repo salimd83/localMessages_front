@@ -17,7 +17,42 @@ Vue.use(Toasted);
 
 if (localStorage.getItem("token")) {
   Vue.prototype.isAuthenticated = true;
+  axios.get('/users/me').then(res => {
+    store.commit('setProfile', {profile: res.data})
+  })
 }
+
+Vue.directive("click-outside", {
+  bind: function(el, binding, vNode) {
+    // Provided expression must evaluate to a function.
+    if (typeof binding.value !== "function") {
+      const compName = vNode.context.name;
+      let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`;
+      if (compName) {
+        warn += `Found in component '${compName}'`;
+      }
+
+      console.warn(warn);
+    }
+    // Define Handler and cache it on the element
+    const bubble = binding.modifiers.bubble;
+    const handler = e => {
+      if (bubble || (!el.contains(e.target) && el !== e.target)) {
+        binding.value(e);
+      }
+    };
+    el.__vueClickOutside__ = handler;
+
+    // add Event Listeners
+    document.addEventListener("click", handler);
+  },
+
+  unbind: function(el, binding) {
+    // Remove Event Listeners
+    document.removeEventListener("click", el.__vueClickOutside__);
+    el.__vueClickOutside__ = null;
+  }
+});
 
 let confirmedLowAccuracy = false;
 let accuracy = null;
@@ -29,7 +64,6 @@ if (navigator.geolocation) {
         var ok = confirm(
           "Location accuracy is very low, would you like to proceed"
         );
-        console.log("test");
         if (!ok) {
           navigator.geolocation.clearWatch(geoId);
           return;
@@ -37,12 +71,6 @@ if (navigator.geolocation) {
           confirmedLowAccuracy = true;
         }
       }
-
-      // const accuracy = localStorage.getItem("accuracy");
-      console.log(position.coords.accuracy);
-      console.log(accuracy);
-      console.log(!accuracy);
-      console.log(position.coords.accuracy > accuracy);
 
       if (!accuracy) {
         accuracy = position.coords.accuracy;

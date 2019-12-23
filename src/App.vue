@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <h1>Location Message</h1>
-    <a href="#" @click.prevent="logout">Logout</a>
-    <hr />
-    <router-view></router-view>
+    <Header />
+    <p
+      class="lead"
+    >Say something about where you are now whether it's a touristic site, a beautifull landmark or a business site.</p>
+
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
+import Header from "./components/layouts/Header"
+
 export default {
   name: "app",
-  methods: {
-    async logout() {
-      await this.axios.post("/users/logout");
-      localStorage.removeItem("token");
-      this.$router.push({ name: "login" });
-    }
+  components: {
+    Header
   }
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./assets/styles/imports";
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #fefefe;
+}
+
+main {
+  padding: 20px 0;
 }
 </style>
