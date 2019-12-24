@@ -1,20 +1,23 @@
 <template>
   <div class="list-messages">
-    <div class="message" v-for="message in messages" :key="message._id">
-      <div class="info">
-        <div class="avatar">
-          <img src="https://lifeatbrio.com/wp-content/uploads/2016/11/user-placeholder.jpg" alt="">
+    <div v-if="messages.length">
+      <div class="message" v-for="message in messages" :key="message._id">
+        <div class="info">
+          <div class="avatar">
+            <img :src="message.user.avatar" alt />
+          </div>
+          <div>
+            <span class="user">
+              <a href="#" class="text-bold">{{`${message.user.firstName} ${message.user.lastName}`}}</a>
+            </span>
+            <span class="date">{{dateFormate(message.createdAt)}}</span>
+          </div>
         </div>
-        <div>
-          <span class="user">
-            <a href="#" class="text-bold">{{`${message.user.firstName} ${message.user.lastName}`}}</a>
-          </span>
-          <span class="date">{{dateFormate(message.createdAt)}}</span>
-        </div>
+        <div class="text">{{message.message}}</div>
       </div>
-      <div class="text">
-        {{message.message}}
-      </div>
+    </div>
+    <div v-else>
+      <h4><i class="fas fa-circle-notch fa-spin"></i></h4>
     </div>
   </div>
 </template>
@@ -31,9 +34,12 @@ export default {
     }
   },
   watch: {
-    location(v) {
+    location() {
       this.fetchMessages();
     }
+  },
+  mounted() {
+    this.fetchMessages();
   },
   computed: {
     messages() {
@@ -71,7 +77,7 @@ export default {
   .message {
     margin: 30px 0;
     .text {
-      margin-left: 45px
+      margin-left: 45px;
     }
     .info {
       margin: 10px 0;

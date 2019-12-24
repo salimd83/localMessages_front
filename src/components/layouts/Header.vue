@@ -1,12 +1,17 @@
 <template>
   <header>
-    <h1 class="mb-0" id="logo">LOCABRI</h1>
+    <h1 class="mb-0" id="logo">
+      <router-link :to="{name: 'home'}">LOCABRI</router-link>
+    </h1>
     <div class="action-bar">
-      <div class="logged-user" v-if="isAuthenticated" v-click-outside="() => open = false">
+      <div class="logged-user" v-if="user" v-click-outside="() => open = false">
         <div class="avatar" @click="open ^= true">
-          <img src="https://i.pravatar.cc/60" alt />
+          <img :src="user.avatar" alt />
         </div>
         <ul class="toggle-menu card" :class="{open}">
+          <li>
+            <router-link :to="{name:'profile'}">Profile</router-link>
+          </li>
           <li>
             <a href="#" @click.prevent="logout">Logout</a>
           </li>
@@ -22,6 +27,11 @@ export default {
     return {
       open: false
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.profile;
+    }
   },
   methods: {
     async logout() {

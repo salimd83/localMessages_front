@@ -1,26 +1,33 @@
 <template>
   <div id="messages" v-if="location.lat">
-    Location: {{`${location.lat} ${location.lng} - ${location.accuracy}`}}
+    <div style="width:600px;">
+      Location: {{`${location.lat} ${location.lng} - ${location.accuracy}`}}
+      <location-map :location="location"></location-map>
+    </div>
 
-    <AddMessage :location="location" />
+    <div>
+      <AddMessage :location="location" />
 
-    <ListMessages :location="location" />
+      <ListMessages :location="location" />
+    </div>
   </div>
 </template>
 
 <script>
-import AddMessage from './AddMessage'
-import ListMessages from './ListMessages'
+import AddMessage from "./AddMessage";
+import ListMessages from "./ListMessages";
+import LocationMap from "../locationMap/LocationMap";
 
 export default {
   name: "Wall",
   components: {
     AddMessage,
-    ListMessages
+    ListMessages,
+    LocationMap
   },
   computed: {
     location() {
-      return this.$store.state.location
+      return this.$store.state.location;
     }
   }
 };

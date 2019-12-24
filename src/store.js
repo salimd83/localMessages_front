@@ -24,6 +24,7 @@ export default new Vuex.Store({
       this.state.location = {lat, lng, accuracy}
     },
     setProfile(state, {profile}) {
+      profile.avatar = process.env.VUE_APP_API_URL + `/users/${profile.id}/avatar`
       this.state.profile = profile
     }
   }
