@@ -17,8 +17,11 @@
       </div>
     </div>
     <div v-else>
-      <h4><i class="fas fa-circle-notch fa-spin"></i></h4>
+      <p>Be the first to post a message in area</p>
     </div>
+    <!-- <div v-else>
+      <h4><i class="fas fa-circle-notch fa-spin"></i></h4>
+    </div> -->
   </div>
 </template>
 
